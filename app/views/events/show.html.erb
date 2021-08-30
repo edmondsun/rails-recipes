@@ -1,0 +1,21 @@
+<!-- <h1><%= @event.name %></h1> -->
+<h2><%= @event.category.try(:name) %></h2>
+
+<% if @event.images.present? %>
+  <% @event.images.each do |i| %>
+    <%= link_to image_tag(i.url(:small)), i.url %>
+  <% end %>
+<% end %>
+
+<%= simple_format @event.description %>
+<!-- <h2><%= display_event_status(@event) %></h2> -->
+<h2><%= t(@event.status, :scope => "event.status") %></h2>
+<p><%= link_to "開始報名", new_event_registration_path(@event), :class => "btn btn-primary" %></p>
+
+<ul>
+<% @event.attachments.each do |a| %>
+  <li><%= link_to a.description, a.attachment.url %></li>
+<% end %>
+</ul>
+
+<%= sanitize @event.description %> <!-- 顯示使用者輸入的HTML內容 -->

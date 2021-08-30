@@ -1,0 +1,45 @@
+<% if @registration.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+    <% @registration.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="form-group">
+  <%= f.label :id %>
+  <%= f.text_field :id, :class => "form-control" %>
+</div>
+
+<div class="form-group">
+  <!--
+  <%= f.fields_for :ticket do |ff| %>
+    <%= ff.label :ticket_name %>
+    <%= ff.text_field :name, :class => "form-control" %>
+  <% end %>
+  -->
+  <%= f.label :ticket_name %>
+  <%= f.select :ticket_id, @event.tickets.map{ |t| [t.name, t.id] }, {}, :class => "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :name %>
+  <%= f.text_field :name, :class => "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :status %>
+  <%= f.text_field :status, :class => "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :email %>
+  <%= f.text_field :email, :class => "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :created_at %>
+  <%= f.text_field :created_at, :class => "form-control" %>
+</div>

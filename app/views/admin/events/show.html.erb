@@ -1,0 +1,110 @@
+<% if @event.logo.present? %>
+  <%= link_to image_tag(@event.logo.url(:thumb)), @event.logo.url, :target => "_blank" %>
+<% end %>
+
+<script src="//cdn.bootcss.com/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+
+<h1><%= @event.name %></h1>
+
+<p>
+  <%= link_to "打開前台", event_path(@event), :target => "_blank", :class => "btn btn-primary" %>
+</p>
+
+<canvas id="myChart1" width="400" height="200"></canvas>
+<script>
+var ctx1 = document.getElementById("myChart1");
+var myChart1 = new Chart(ctx1, {
+    type: 'bar',  
+    data: <%= raw @data1.to_json %>,
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+<canvas id="myChart3" width="400" height="200"></canvas>
+<script>
+var ctx3 = document.getElementById("myChart3");
+var myChart3 = new Chart(ctx3, {
+    type: 'line',
+    data: <%= raw @data3.to_json %>,
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+<canvas id="myChart2" width="400" height="200"></canvas>
+<script>
+var ctx2 = document.getElementById("myChart2");
+var myChart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: <%= raw @data2.to_json %>,
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+<% if false %>
+<canvas id="myChart" width="400" height="200"></canvas>
+<script>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'bar', // 長條圖
+    data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"], // 橫軸的標籤有哪些
+        datasets: [{
+            label: '# of Votes', // 數據集的名稱 
+            data: [12, 19, 3, 5, 2, 3], // 數據(這是數組)   
+            backgroundColor: [ // 長條的顏色
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1 // 要有框線
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true // Y 軸要從 0 起跳
+                }
+            }]
+        }
+    }
+});
+</script>
+<% end %>
+
+<%= simple_format @event.description %>

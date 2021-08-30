@@ -1,0 +1,7 @@
+log/*.log
+tmp
+config/database.yml
+config/secret.yml
+
+*.swp
+.DS_Store
