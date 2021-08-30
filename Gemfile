@@ -67,6 +67,7 @@ group :development, :test do
   gem 'rspec-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  # >>> add gem >>>
   gem 'faker'
   gem "capistrano"
   gem "capistrano-rvm"
@@ -74,10 +75,11 @@ group :development, :test do
   gem "capistrano-rails"
   gem "capistrano-passenger"
   gem "capistrano-upload-config"
+  # <<< end add gem <<<
 end
 
 group :development do
-  gem 'faker'
+  # gem 'faker'
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
@@ -88,10 +90,10 @@ group :development do
 
   # >>> add gem >>>
   gem 'letter_opener'
-  gem 'capistrano-rails'
-  gem 'capistrano-passenger'
+  # gem 'capistrano-rails'
+  # gem 'capistrano-passenger'
   # <<< end add gem <<<
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
