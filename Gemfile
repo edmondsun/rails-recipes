@@ -68,6 +68,12 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'faker'
+  gem "capistrano"
+  gem "capistrano-rvm"
+  gem 'capistrano-bundler'
+  gem "capistrano-rails"
+  gem "capistrano-passenger"
+  gem "capistrano-upload-config"
 end
 
 group :development do
