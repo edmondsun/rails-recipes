@@ -25,6 +25,7 @@ gem 'caxlsx_rails'
 gem 'premailer-rails'
 gem 'sidekiq'
 gem 'dotenv-rails'
+gem 'devise-i18n'
 # <<< end add gem <<<
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
