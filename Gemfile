@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # >>> add gem >>>
-# gem "rails-i18n"
+gem "rails-i18n"
 gem 'select2-rails'
 gem "nested_form_fields"
 gem 'bootstrap-datepicker-rails'
