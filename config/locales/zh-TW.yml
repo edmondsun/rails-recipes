@@ -1,4 +1,8 @@
 "zh-TW":
+  devise:
+    sessions:
+      user:
+        signed_in: 登入成功
   notification:
     subject:
       confirmed_registration: "報名成功: %{name}"
