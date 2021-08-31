@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module RailsRecipes
   class Application < Rails::Application
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.time_zone = "Taipei"
     config.i18n.default_locale = "zh-TW"
     Time::DATE_FORMATS.merge!(:default => '%Y/%m/%d %I:%M %p', :ymd => '%Y/%m/%d')
