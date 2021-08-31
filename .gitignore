@@ -1,9 +1,16 @@
+/.bundle
+
 log/*.log
 tmp
 config/database.yml
 config/secret.yml
+config/initializers/devise.rb
 
 *.swp
 .DS_Store
 
 .env
+
+coverage
+dump.rdb
+public/assets
