@@ -5,3 +5,5 @@ config/secret.yml
 
 *.swp
 .DS_Store
+
+.env
