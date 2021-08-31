@@ -11,4 +11,3 @@ config/database.yml
 
 coverage
 dump.rdb
-public/assets
