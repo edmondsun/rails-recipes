@@ -1,13 +1,14 @@
 # rails-recipes
 
 <h3>Description</h3>
-  rails recipes - Registration system
 
-Event information that users can see at the front desk
-Administrators can manage activity data in the background
-Administrators can manage user information in the background
-Users can register at the front desk
-The administrator can manage newspaper information in the background
+>Registration system
+
+Event information that users can see at the front desk<br>
+Administrators can manage activity data in the background<br>
+Administrators can manage user information in the background<br>
+Users can register at the front desk<br>
+The administrator can manage newspaper information in the background<br>
 
 <h3>Enviroment</h3>
   rails ~> 5.0.7
