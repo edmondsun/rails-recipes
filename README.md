@@ -1,24 +1,63 @@
-# README
+# rails-recipes
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<h3>Description</h3>
+  rails recipes - Registration system
 
-Things you may want to cover:
+Event information that users can see at the front desk
+Administrators can manage activity data in the background
+Administrators can manage user information in the background
+Users can register at the front desk
+The administrator can manage newspaper information in the background
 
-* Ruby version
+<h3>Enviroment</h3>
+  rails ~> 5.0.7
+  ruby ~> 2.6.5
+  vue ^2.5.17
+  vuex ^3.0.1
+  pg ~> 0.5.3
 
-* System dependencies
+<h3>Edit</h3> 
 
-* Configuration
+``` bash
+# copy it to .env
+rake secret
 
-* Database creation
+# copy database.yml
+cp database.yml.example database.yml
 
-* Database initialization
+# create fake data
+rake dev:fake_data
 
-* How to run the test suite
+# after create fake data, get root user
+email: admin@example.org
+password: 12345678
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+<h3>Install</h3> 
 
-* Deployment instructions
+``` bash
+# install ruby 2.6.5
+rvm install ruby 2.6.5
 
-* ...
+# insall yarn
+yarn install
+
+# insall gem files
+bundle install
+
+# create db
+rake db:create
+
+# create migration database
+rake db:migration
+```
+
+<h3>Execute and Run</h3> 
+
+``` bash
+# path
+cd rails-recipes
+
+# excute serve
+rails server
+```
