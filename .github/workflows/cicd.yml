@@ -6,11 +6,25 @@ on:
 
 jobs:
   pre-inspection:
-    name: Publish and inspect
+    name: Publish and inspect Brakeman
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: Install gems
+      run: |
+        gem install brakeman -v 5.1.2
+    - name: brakeman report
+      run: |
+        brakeman -f json > tmp/brakeman.json || exit 0
     - name: Brakeman
       uses: devmasx/brakeman-linter-action@v1.0.0
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        REPORT_PATH: tmp/brakeman.json
+
+
+
+
