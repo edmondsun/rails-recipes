@@ -23,12 +23,14 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: brakeman_report
-          path: brakeman_dist
+          path: ./brakeman_dist
+          retention-days: 3
       - name: Upload Rubycritic report
         uses: actions/upload-artifact@v2
         with:
           name: rubycritic_report
-          path: rubycritic_dist
+          path: ./rubycritic_dist
+          retention-days: 3
   download_inspection_report:
     name: Brakeman results
     needs: build
@@ -38,7 +40,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: brakeman_report
-          retention-days: 3
       - name: Print the final result
         shell: bash
         run: |
@@ -48,4 +49,3 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: rubycritic_report
-          retention-days: 3
