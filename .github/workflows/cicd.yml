@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Publish and install needs
+    name: Publish and Build
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -25,11 +25,11 @@ jobs:
         with:
           name: brakeman_report
           path: brakeman_dist
-      - name: Upload Rubycritic report
-        uses: actions/upload-artifact@v2
-        with:
-          name: rubycritic_report
-          path: rubycritic_dist
+      # - name: Upload Rubycritic report
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: rubycritic_report
+      #     path: rubycritic_dist
 
   # pre_install:
   #   name: Publish and install needs
