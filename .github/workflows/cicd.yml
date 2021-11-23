@@ -1,4 +1,4 @@
-.github/workflows/cicd.ymlname: CICD
+name: CICD
 
 on:
   push:
