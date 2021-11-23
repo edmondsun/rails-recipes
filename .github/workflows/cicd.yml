@@ -5,8 +5,8 @@ on:
     branches: [ master ]
 
 jobs:
-  pre_inspection:
-    name: Publish and inspect code
+  pre_install:
+    name: Publish and install needs
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -17,19 +17,39 @@ jobs:
         run: |
           gem install brakeman
           gem install rubycritic
-      - shell: bash
-        run: |
-          brakeman -o brakeman_dist 
-      - name: Upload Brakeman report
-        uses: actions/upload-artifact@v2
-        with:
-          name: brakeman_report
-          path: brakeman_dist
+      # - shell: bash
+      #   run: |
+      #     brakeman -o brakeman_dist 
+      # - name: Upload Brakeman report
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: brakeman_report
+      #     path: brakeman_dist
       # - name: Upload Rubycritic report
       #   uses: actions/upload-artifact@v2
       #   with:
       #     name: rubycritic_report
       #     path: rubycritic_dist
+  pre_inspection:
+    needs: pre_install
+    runs-on: ubuntu-18.04
+    steps:
+      - shell: bash
+        run: |
+          brakeman > brakeman_dist 
+      - name: Upload Brakeman report
+        uses: actions/upload-artifact@v2
+        with:
+          name: brakeman_report
+          path: brakeman_dist
+      - shell: bash
+        run: |
+          rubycritic -p rubycritic_dist 
+      - name: Upload Rubycritic report
+        uses: actions/upload-artifact@v2
+        with:
+          name: rubycritic_report
+          path: rubycritic_dist
 
   download_inspection_report:
     name: Display Brakeman results
@@ -44,8 +64,18 @@ jobs:
       - name: Print the final result
         shell: bash
         run: |
-          value=`cat brakeman`
+          value=`cat brakeman_dist`
           echo The result is $value
+
+    name: Display Rubycritic results
+    needs: pre_inspection
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Download Rubycritic report
+        uses: actions/download-artifact@v2
+        with:
+          name: rubycritic_report
+          retention-days: 3
 
     # name: Display rubycritic results
     # needs: pre_inspection
