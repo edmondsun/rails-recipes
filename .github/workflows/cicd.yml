@@ -20,7 +20,7 @@ jobs:
       - shell: bash
         run: |
           brakeman -o brakeman_dist 
-          rubycritic -o rubycritic_dist || exit 0
+          rubycritic -p rubycritic_dist || exit 0
       - name: Upload Brakeman report
         uses: actions/upload-artifact@v2
         with:
