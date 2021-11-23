@@ -20,7 +20,6 @@ jobs:
       - shell: bash
         run: |
           brakeman -o brakeman_dist 
-          rubycritic -p rubycritic_dist
       - name: Upload Brakeman report
         uses: actions/upload-artifact@v2
         with:
@@ -48,15 +47,15 @@ jobs:
           value=`cat brakeman`
           echo The result is $value
 
-    name: Display rubycritic results
-    needs: pre_inspection
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Download Brakeman report
-        uses: actions/download-artifact@v2
-        with:
-          name: rubycritic_report
-          retention-days: 3
+    # name: Display rubycritic results
+    # needs: pre_inspection
+    # runs-on: ubuntu-18.04
+    # steps:
+    #   - name: Download Brakeman report
+    #     uses: actions/download-artifact@v2
+    #     with:
+    #       name: rubycritic_report
+    #       retention-days: 3
 
     # steps:
     # - uses: actions/checkout@v2
