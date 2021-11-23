@@ -26,6 +26,16 @@ jobs:
         name: 'archive-brakeman'
         path: |
           tmp/brakeman.json
+        retention-days: 3
+    - name: Download Brakeman report
+      uses: actions/download-artifact@v2
+      with:
+        name: 'archive-brakeman'
+    - name: Print the final result
+      shell: bash
+      run: |
+        value=`cat tmp/brakeman.json`
+        echo The result is $value
 
     # - uses: actions/download-artifact@v2
     #   id: download
