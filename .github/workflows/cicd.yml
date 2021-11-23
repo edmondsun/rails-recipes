@@ -10,26 +10,37 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
+    # - uses: actions/setup-ruby@v1
+    #   with:
+    #     ruby-version: 2.6.x
     - name: Install gems
       run: |
         gem install brakeman
-    - uses: actions/download-artifact@v2
-      id: download
-      with:
-        name: 'brakeman-artifact'
-        path: 'tmp/brakeman-artifact-dist'
     - name: brakeman report
       run: |
         mkdir tmp/
-        brakeman -f json > tmp/${{steps.download.outputs.download-path}} || exit 0
-    - name: Brakeman
-      uses: devmasx/brakeman-linter-action@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        REPORT_PATH: tmp/brakeman.json
+        brakeman -f json > tmp/brakeman.json || exit 0
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'archive-brakeman'
+        path: |
+          tmp/brakeman.json
+
+    # - uses: actions/download-artifact@v2
+    #   id: download
+    #   with:
+    #     name: 'brakeman-artifact'
+    #     path: 'tmp/brakeman-artifact-dist'
+    # - name: brakeman report
+    #   run: |
+    #     mkdir tmp/
+    #     brakeman -f json > tmp/${{steps.download.outputs.download-path}} || exit 0
+    # - name: Brakeman
+    #   uses: devmasx/brakeman-linter-action@v1.0.0
+    #   env:
+    #     GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    #     REPORT_PATH: tmp/brakeman.json
 
 
 
