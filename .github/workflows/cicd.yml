@@ -31,6 +31,30 @@ jobs:
         with:
           name: rubycritic_report
           path: rubycritic_dist
+  download_inspection_report:
+    name: Brakeman results
+    needs: build
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Download Brakeman report
+        uses: actions/download-artifact@v2
+        with:
+          name: brakeman_report
+          retention-days: 3
+      - name: Print the final result
+        shell: bash
+        run: |
+          value=`cat brakeman_dist`
+          echo The result is $value          
+    name: Rubycritic results
+    needs: pre_inspection
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Download Rubycritic report
+        uses: actions/download-artifact@v2
+        with:
+          name: rubycritic_report
+          retention-days: 3
 
   # pre_install:
   #   name: Publish and install needs
