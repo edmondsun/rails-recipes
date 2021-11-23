@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    name: Publish and Build
+    name: Generate Reports
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -15,37 +15,37 @@ jobs:
         run: |
           gem install brakeman
           gem install rubycritic
-      - name: generate brakeman report
+      - name: Generate Brakeman Report
         run: brakeman > brakeman_dist || exit 0
-      - name: generate rubycritic report
+      - name: Generate Rubycritic Report
         run: rubycritic -p rubycritic_dist || exit 0
-      - name: Upload Brakeman report
+      - name: Upload Brakeman Archive
         uses: actions/upload-artifact@v2
         with:
           name: brakeman_report
           path: ./brakeman_dist
           retention-days: 3
-      - name: Upload Rubycritic report
+      - name: Upload Rubycritic Archive
         uses: actions/upload-artifact@v2
         with:
           name: rubycritic_report
           path: ./rubycritic_dist
           retention-days: 3
   download_inspection_report:
-    name: Brakeman results
+    name: Download Archives
     needs: build
     runs-on: ubuntu-18.04
     steps:
-      - name: Download Brakeman report
+      - name: Brakeman Archive
         uses: actions/download-artifact@v2
         with:
           name: brakeman_report
-      - name: Print the final result
+      - name: Print the Brakeman result
         shell: bash
         run: |
           value=`cat brakeman_dist`
           echo The result is $value    
-      - name: Download Rubycritic report
+      - name: Rubycritic Archive
         uses: actions/download-artifact@v2
         with:
           name: rubycritic_report
