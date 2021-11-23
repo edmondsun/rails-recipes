@@ -19,7 +19,6 @@ jobs:
           gem install rubycritic
         run: |
           brakeman > brakeman_dist 
-          rubycritic -p rubycritic_dist 
       - name: Upload Brakeman report
         uses: actions/upload-artifact@v2
         with:
