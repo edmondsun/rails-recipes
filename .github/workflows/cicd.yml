@@ -45,11 +45,7 @@ jobs:
         shell: bash
         run: |
           value=`cat brakeman_dist`
-          echo The result is $value          
-    name: Rubycritic results
-    needs: pre_inspection
-    runs-on: ubuntu-18.04
-    steps:
+          echo The result is $value    
       - name: Download Rubycritic report
         uses: actions/download-artifact@v2
         with:
