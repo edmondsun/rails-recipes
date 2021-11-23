@@ -17,9 +17,10 @@ jobs:
         run: |
           gem install brakeman
           gem install rubycritic
-      - name: generate report
-      - run: npm brakeman > brakeman_dist
-      - run: rubycritic -p rubycritic_dist
+      - name: generate brakeman report
+        run: npm brakeman > brakeman_dist
+      - name: generate rubycritic report
+        run: rubycritic -p rubycritic_dist
       - name: Upload Brakeman report
         uses: actions/upload-artifact@v2
         with:
