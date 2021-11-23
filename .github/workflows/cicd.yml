@@ -1,4 +1,4 @@
-name: CICD
+name: alfred CI
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   pre_inspection:
-    name: Publish and inspect Brakeman
+    name: Publish and inspect code
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -16,17 +16,24 @@ jobs:
       - name: Install gems
         run: |
           gem install brakeman
+          gem install rubycritic
       - shell: bash
         run: |
-          brakeman > brakeman || exit 0
+          brakeman -o brakeman_dist 
+          rubycritic -o rubycritic_dist || exit 0
       - name: Upload Brakeman report
         uses: actions/upload-artifact@v2
         with:
           name: brakeman_report
-          path: brakeman
+          path: brakeman_dist
+      - name: Upload Rubycritic report
+        uses: actions/upload-artifact@v2
+        with:
+          name: rubycritic_report
+          path: rubycritic_dist
 
   download_inspection_report:
-    name: Display results
+    name: Display Brakeman results
     needs: pre_inspection
     runs-on: ubuntu-18.04
     steps:
@@ -34,11 +41,22 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: brakeman_report
+          retention-days: 3
       - name: Print the final result
         shell: bash
         run: |
           value=`cat brakeman`
           echo The result is $value
+
+    name: Display rubycritic results
+    needs: pre_inspection
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Download Brakeman report
+        uses: actions/download-artifact@v2
+        with:
+          name: rubycritic_report
+          retention-days: 3
 
     # steps:
     # - uses: actions/checkout@v2
