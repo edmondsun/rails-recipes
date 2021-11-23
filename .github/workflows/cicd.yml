@@ -20,16 +20,17 @@ jobs:
       - name: brakeman report
         run: |
           brakeman > brakeman_dist || exit 0
+          rubycritic -p rubycritic_dist || exit 0
       - name: Upload Brakeman report
         uses: actions/upload-artifact@v2
         with:
           name: brakeman_report
           path: brakeman_dist
-      # - name: Upload Rubycritic report
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: rubycritic_report
-      #     path: rubycritic_dist
+      - name: Upload Rubycritic report
+        uses: actions/upload-artifact@v2
+        with:
+          name: rubycritic_report
+          path: rubycritic_dist
 
   # pre_install:
   #   name: Publish and install needs
