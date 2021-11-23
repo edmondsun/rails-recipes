@@ -18,14 +18,14 @@ jobs:
           gem install brakeman
       - shell: bash
         run: |
-          brakeman -f json > brakeman.json || exit 0
+          brakeman > brakeman || exit 0
       - name: Upload Brakeman report
         uses: actions/upload-artifact@v2
         with:
           name: brakeman_report
-          path: brakeman.json
+          path: brakeman
 
-  download_report:
+  download_inspection_report:
     name: Display results
     needs: pre_inspection
     runs-on: ubuntu-18.04
@@ -37,7 +37,7 @@ jobs:
       - name: Print the final result
         shell: bash
         run: |
-          value=`cat brakeman.json`
+          value=`cat brakeman`
           echo The result is $value
 
     # steps:
