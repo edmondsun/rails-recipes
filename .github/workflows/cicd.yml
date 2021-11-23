@@ -19,12 +19,12 @@ jobs:
       - shell: bash
         run: |
           mkdir tmp/
-          brakeman -o brakeman_file
+          brakeman -f json > tmp/brakeman.json || exit 0
       - name: Upload Brakeman report
         uses: actions/upload-artifact@v2
         with:
           name: brakeman_report
-          path: brakeman_file
+          path: tmp/brakeman.json
 
   download_report:
     name: Display results
@@ -38,7 +38,7 @@ jobs:
       - name: Print the final result
         shell: bash
         run: |
-          value=`cat brakeman_report`
+          value=`cat tmp/brakeman.json`
           echo The result is $value
 
     # steps:
