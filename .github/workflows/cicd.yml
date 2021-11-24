@@ -12,7 +12,7 @@ jobs:
 
     name: Install and Build Reports
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v2
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
@@ -28,13 +28,12 @@ jobs:
         run: |
           gem install brakeman
           gem install rubycritic
-          gem install rubocop
       - name: Generate Brakeman Report
         run: brakeman > brakeman_dist || exit 0
       - name: Generate Rubycritic Report
         run: rubycritic -p rubycritic_dist || exit 0
       - name: Generate Rubocop Report
-        run: rubocop -o rubocop_dist || exit 0
+        run: bin/rubocop -o rubocop_dist || exit 0
       - name: Upload Brakeman Archive
         uses: actions/upload-artifact@v2
         with:
