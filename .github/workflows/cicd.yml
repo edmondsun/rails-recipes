@@ -7,55 +7,62 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        ruby-version: ['2.6', '2.7']
+        # ruby-version: ['2.6', '2.7']
+        ruby-version: ['2.7.x']
 
     name: Install And Build Reports
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-ruby@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Ruby
+        # uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
         with:
             ruby-version: ${{ matrix.ruby-version }}
       #     ruby-version: 2.7.x
-      - name: Install gems
-        # uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
-        # uses: actions/setup-ruby@v1
-        # with:
-        #   ruby-version: ${{ matrix.ruby-version }}
-        #   bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      # - name: Install gems
+      #   # uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+      #   # uses: actions/setup-ruby@v1
+      #   # with:
+      #   #   ruby-version: ${{ matrix.ruby-version }}
+      #   #   bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      #   run: |
+      #     gem install brakeman
+      #     gem install rubycritic
+      # - name: Generate Brakeman Report
+      #   run: brakeman > brakeman_dist || exit 0
+      # - name: Generate Rubycritic Report
+      #   run: rubycritic -p rubycritic_dist || exit 0
+      # - name: Upload Brakeman Archive
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: brakeman_report
+      #     path: ./brakeman_dist
+      #     retention-days: 3
+      # - name: Upload Rubycritic Archive
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: rubycritic_report
+      #     path: ./rubycritic_dist
+      #     retention-days: 3
+      - name: Run linters
         run: |
-          gem install brakeman
-          gem install rubycritic
-      - name: Generate Brakeman Report
-        run: brakeman > brakeman_dist || exit 0
-      - name: Generate Rubycritic Report
-        run: rubycritic -p rubycritic_dist || exit 0
-      - name: Upload Brakeman Archive
-        uses: actions/upload-artifact@v2
-        with:
-          name: brakeman_report
-          path: ./brakeman_dist
-          retention-days: 3
-      - name: Upload Rubycritic Archive
-        uses: actions/upload-artifact@v2
-        with:
-          name: rubycritic_report
-          path: ./rubycritic_dist
-          retention-days: 3
-  download_inspection_report:
-    name: Create Archives
-    needs: build
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Brakeman Archive
-        uses: actions/download-artifact@v2
-        with:
-          name: brakeman_report
-      - name: Print Brakeman Result
-        shell: bash
-        run: |
-          value=`cat brakeman_dist`
-          echo The result is $value    
-      - name: Rubycritic Archive
-        uses: actions/download-artifact@v2
-        with:
-          name: rubycritic_report
+          bin/rubocop --parallel
+  # download_inspection_report:
+  #   name: Create Archives
+  #   needs: build
+  #   runs-on: ubuntu-18.04
+  #   steps:
+  #     - name: Brakeman Archive
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: brakeman_report
+  #     - name: Print Brakeman Result
+  #       shell: bash
+  #       run: |
+  #         value=`cat brakeman_dist`
+  #         echo The result is $value    
+  #     - name: Rubycritic Archive
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: rubycritic_report
