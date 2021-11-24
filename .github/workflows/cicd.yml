@@ -28,10 +28,13 @@ jobs:
         run: |
           gem install brakeman
           gem install rubycritic
+          gem install rubocop
       - name: Generate Brakeman Report
         run: brakeman > brakeman_dist || exit 0
       - name: Generate Rubycritic Report
         run: rubycritic -p rubycritic_dist || exit 0
+      - name: Generate Rubocop Report
+        run: rubocop -o rubocop_dist || exit 0
       - name: Upload Brakeman Archive
         uses: actions/upload-artifact@v2
         with:
@@ -43,6 +46,12 @@ jobs:
         with:
           name: rubycritic_report
           path: ./rubycritic_dist
+          retention-days: 3
+      - name: Upload Rubocop Archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: rubocop_report
+          path: ./rubocop_dist
           retention-days: 3
   download_inspection_report:
     name: Create Archives
@@ -62,3 +71,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: rubycritic_report
+      - name: Rubocop Archive
+        uses: actions/download-artifact@v2
+        with:
+          name: rubocop_report
