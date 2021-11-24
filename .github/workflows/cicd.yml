@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         # ruby-version: ['2.6', '2.7']
-        ruby-version: ['2.7.x']
+        ruby-version: ['2.7']
 
     name: Install And Build Reports
     steps:
